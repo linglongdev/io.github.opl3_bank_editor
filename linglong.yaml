@@ -1,0 +1,30 @@
+version: "1"
+
+package:
+  id: io.github.opl3_bank_editor
+  name: opl3_bank_editor
+  version: 1.5.1.1
+  kind: app
+  description: |
+    A small cross-platform editor of the OPL3 FM banks of different formats
+
+command:
+  - /opt/apps/io.github.opl3_bank_editor/files/bin/opl3_bank_editor
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/Wohlstand/OPL3BankEditor.git
+    version: master
+    commit: a34c310a1da24a2d768e5c9b9dd05a7b66559dcd
+
+build: |
+  cd /project/linglong/sources/OPL3BankEditor.git
+  mkdir -p build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install -j$(nproc --all)
+
